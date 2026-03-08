@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📚 Tech Resource Library
 
 > A full-stack web application that helps students find curated learning resources for popular programming technologies in one place.
@@ -374,4 +375,4 @@ Built with ❤️ for students learning to code
 
 ---
 
-**Happy Learning! 🚀**
+
