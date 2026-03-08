@@ -6,19 +6,20 @@
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=flat&logo=react)](https://reactjs.org/)
 [![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat&logo=sqlite)](https://www.sqlite.org/)
 
-## 🎯 Overview
+## 🎯 Project Overview
 
-Tech Resource Library is a platform where students can search for any programming technology and instantly access the top learning resources including YouTube videos, tutorials, notes, and official documentation - all categorized and sorted by popularity.
+Tech Resource Library is a full-stack platform where students can search for any programming technology and instantly access curated learning resources including YouTube videos, tutorials, notes, and official documentation - all categorized and sorted by popularity. This eliminates the need to search across multiple platforms.
 
 ### Key Features
 
 - 🔍 **Smart Search** - Find resources for 19+ technologies instantly
-- 📊 **Categorized Content** - Videos, Notes, and References organized separately
+- 📊 **Categorized Content** - Videos, Notes, and References organized separately  
 - 🎯 **Popularity Sorting** - Resources ranked by views and community recommendations
 - 🚀 **Fast & Lightweight** - Built with modern tech stack for optimal performance
 - 🎨 **Clean UI** - Intuitive, beginner-friendly interface
 - 🔓 **No Authentication** - Open access for all students
 - 📱 **Responsive Design** - Works seamlessly on all devices
+- 💾 **638+ Resources** - Comprehensive collection across 19 technologies
 
 ## 🛠️ Tech Stack
 
@@ -102,37 +103,75 @@ npm run dev
 ```
 tech-resource-library/
 │
-├── backend/                    # Backend API
-│   ├── routes/                 # API route handlers
-│   │   ├── technologies.py     # Technology endpoints
-│   │   └── resources.py        # Resource endpoints
-│   ├── main.py                 # FastAPI application entry point
-│   ├── models.py               # SQLAlchemy database models
-│   ├── database.py             # Database configuration
-│   ├── seed_data.py            # Database seeding script
-│   ├── requirements.txt        # Python dependencies
-│   └── library.db              # SQLite database (auto-generated)
+├── backend/                         # Backend API (FastAPI + SQLite)
+│   ├── routes/                      # API route handlers
+│   │   ├── __init__.py              # Routes package initialization
+│   │   ├── technologies.py          # GET /technologies endpoint
+│   │   └── resources.py             # GET/POST/DELETE /resources endpoints
+│   │
+│   ├── api/                         # Vercel serverless functions
+│   │   └── index.py                 # Vercel entry point
+│   │
+│   ├── main.py                      # FastAPI app entry point & CORS config
+│   ├── models.py                    # SQLAlchemy models (Technology, Resource)
+│   ├── database.py                  # Database connection & session management
+│   ├── seed_data.py                 # Database initialization with 638+ resources
+│   ├── requirements.txt             # Python dependencies (FastAPI, SQLAlchemy, etc.)
+│   ├── .env.example                 # Environment variables template
+│   ├── vercel.json                  # Vercel deployment configuration
+│   └── library.db                   # SQLite database (auto-generated)
 │
-├── frontend/                   # React frontend
+├── frontend/                        # React frontend (Vite)
 │   ├── src/
-│   │   ├── components/         # Reusable React components
-│   │   │   ├── SearchBar.jsx   # Search input component
-│   │   │   └── ResourceCard.jsx # Resource display card
-│   │   ├── pages/              # Page components
-│   │   │   ├── Home.jsx        # Landing page with search
-│   │   │   └── Results.jsx     # Search results page
-│   │   ├── services/           # API integration
-│   │   │   └── api.js          # Axios API calls
-│   │   ├── App.jsx             # Main app component with routing
-│   │   ├── main.jsx            # React entry point
-│   │   └── index.css           # Global styles
-│   ├── index.html              # HTML template
-│   ├── package.json            # Node dependencies
-│   └── vite.config.js          # Vite configuration
+│   │   ├── components/              # Reusable React components
+│   │   │   ├── SearchBar.jsx        # Search input with suggestions
+│   │   │   └── ResourceCard.jsx     # Resource display card
+│   │   │
+│   │   ├── pages/                   # Page components
+│   │   │   ├── Home.jsx             # Landing page with search & tech cards
+│   │   │   └── Results.jsx          # Search results with categorized resources
+│   │   │
+│   │   ├── services/                # API integration layer
+│   │   │   └── api.js               # Axios HTTP client & API methods
+│   │   │
+│   │   ├── App.jsx                  # Main app with React Router
+│   │   ├── main.jsx                 # React entry point
+│   │   └── index.css                # Global styles & responsive design
+│   │
+│   ├── index.html                   # HTML template
+│   ├── package.json                 # Node dependencies & scripts
+│   ├── vite.config.js               # Vite build configuration
+│   └── .env.example                 # Frontend environment variables
 │
-├── .gitignore                  # Git ignore rules
-└── README.md                   # Project documentation
+├── .gitignore                       # Git ignore rules (node_modules, venv, .db)
+├── .vscode/                         # VS Code settings (optional)
+├── LICENSE                          # MIT License
+├── README.md                        # Project documentation (this file)
+│
+└── Windows Scripts/                 # Quick start scripts for Windows
+    ├── setup.bat                    # Complete project setup
+    ├── start-all.bat                # Start both servers
+    ├── start-backend.bat            # Start backend only
+    └── start-frontend.bat           # Start frontend only
 ```
+
+### Key Files Explained
+
+**Backend:**
+- `main.py` - FastAPI application with CORS middleware and route registration
+- `models.py` - Database schema: Technology (id, name, description) & Resource (id, technology_id, title, url, type, views, language, created_at)
+- `database.py` - SQLAlchemy engine, session factory, and database connection
+- `seed_data.py` - Populates database with 19 technologies and 638+ curated resources
+- `routes/technologies.py` - Returns list of all available technologies
+- `routes/resources.py` - Returns categorized resources (videos/notes/references) for a technology
+
+**Frontend:**
+- `App.jsx` - React Router setup with Home and Results routes
+- `pages/Home.jsx` - Search interface with technology cards
+- `pages/Results.jsx` - Displays resources in 3 categories (Videos, Notes, References)
+- `components/SearchBar.jsx` - Search input component
+- `components/ResourceCard.jsx` - Individual resource display card
+- `services/api.js` - Centralized API calls using Axios
 
 ## 🔌 API Endpoints
 
